@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class LifterTile: FloorTile
+public class LifterTile: TileEffect
 {
 	public GameObject liftee;
 	private bool lifterEnabled = false;

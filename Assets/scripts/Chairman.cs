@@ -57,7 +57,5 @@ public class Chairman : MonoBehaviour
 		var forcePosition = this.transform.position - fwd + offset;
 		previous.transform.position = forcePosition;
 		body.AddForceAtPosition(transform.forward, forcePosition, ForceMode.Impulse);
-		Debug.Log(transform.forward);
-		Debug.Log(forcePosition);
 	}
 }

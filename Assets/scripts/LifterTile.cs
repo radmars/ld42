@@ -40,9 +40,22 @@ public class LifterTile: TileEffect
 			liftee.transform.localPosition = Vector3.Lerp(lowered, raised, completeness);
 			if(completeness >= 1)
 			{
-				lifterEnabled = false;
-				MarkFinished();
+				Stop();
 			}
+		}
+	}
+
+	private void Stop()
+	{
+		lifterEnabled = false;
+		MarkFinished();
+	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		if(lifterEnabled && collision.collider.tag == "Obstacle")
+		{
+			Stop();
 		}
 	}
 }

@@ -44,9 +44,23 @@ public class BlockMover : TileEffect
             gameObject.transform.localPosition = Vector3.Lerp(retracted, extended, completeness);
             if (completeness >= 1)
             {
-                moverEnabled = false;
-                MarkFinished();
+				Stop();
+
             }
         }
     }
+
+	private void Stop()
+	{
+		moverEnabled = false;
+		MarkFinished();
+	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		if(moverEnabled && collision.collider.tag == "Obstacle")
+		{
+			Stop();
+		}
+	}
 }

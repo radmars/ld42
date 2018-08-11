@@ -8,6 +8,7 @@ public class Chairman : MonoBehaviour
 	public GameObject o;
 
 	private GameObject previous;
+	public bool crushed;
 
 	// Use this for initialization
 	void Start()
@@ -57,5 +58,17 @@ public class Chairman : MonoBehaviour
 		var forcePosition = this.transform.position - fwd + offset;
 		previous.transform.position = forcePosition;
 		body.AddForceAtPosition(transform.forward, forcePosition, ForceMode.Impulse);
+	}
+
+	private void OnCollisionStay(Collision collision)
+	{
+		if(collision.collider.tag == "Obstacle" && Mathf.Abs(collision.contacts[0].separation) > .1f)
+		{
+			if(!crushed)
+			{
+				Debug.Log("You got crushed");
+				crushed = true;
+			}
+		}
 	}
 }

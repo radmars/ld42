@@ -21,43 +21,49 @@ public class Chairman : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.W))
 		{
-			force(0, 0);
+			Force(new Vector3(0, -1f));
 		}
 		else if (Input.GetKeyDown(KeyCode.Q))
 		{
-			force(.5f, .5f);
+			Force(new Vector3(1f, 1f), transform.up);
 		}
 		else if (Input.GetKeyDown(KeyCode.E))
 		{
-			force(-.5f, .5f);
+			Force(new Vector3(1f, 1f), transform.up);
 		}
 		else if(Input.GetKeyDown(KeyCode.A))
 		{
-			force(.5f, -.5f);
+			Force(new Vector3(1f, -1f));
 		}
 		else if(Input.GetKeyDown(KeyCode.D))
 		{
-			force(-.5f, -.5f);
+			Force(new Vector3(-1f, -1f));
+		}
+		else if(Input.GetKeyDown(KeyCode.S))
+		{
+			Force(new Vector3(0, -1f, 2), transform.forward * -1);
 		}
 	}
 
-	private void force(float x, float y)
+	private void Force(Vector3 offset)
+	{
+		Force(offset, transform.forward + Vector3.up * .1f);
+	}
+
+	private void Force(Vector3 offset, Vector3 direction)
 	{
 		Destroy(previous);
 		previous = Instantiate(o);
 		var fwd = transform.forward;
-		fwd.y = 0;
 		fwd.Normalize();
-		if(fwd.magnitude == 0)
-		{
-			fwd = transform.up;
-		}
-		var offset = new Vector3(x, y, 0);
+
 		var q = Quaternion.LookRotation(fwd);
-		offset = q * offset;
+		offset = (q * offset);
+
 		var forcePosition = this.transform.position - fwd + offset;
+		Debug.Log("outbound offset " + offset);
 		previous.transform.position = forcePosition;
-		body.AddForceAtPosition(transform.forward, forcePosition, ForceMode.Impulse);
+		body.AddForceAtPosition(direction, forcePosition, ForceMode.Impulse);
 	}
 
 	private void OnCollisionStay(Collision collision)

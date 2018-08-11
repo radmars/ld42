@@ -47,12 +47,17 @@ public class Chairman : MonoBehaviour
 		var fwd = transform.forward;
 		fwd.y = 0;
 		fwd.Normalize();
-		// TODO Rotate into fwd orientation?
+		if(fwd.magnitude == 0)
+		{
+			fwd = transform.up;
+		}
 		var offset = new Vector3(x, y, 0);
 		var q = Quaternion.LookRotation(fwd);
 		offset = q * offset;
 		var forcePosition = this.transform.position - fwd + offset;
 		previous.transform.position = forcePosition;
 		body.AddForceAtPosition(transform.forward, forcePosition, ForceMode.Impulse);
+		Debug.Log(transform.forward);
+		Debug.Log(forcePosition);
 	}
 }

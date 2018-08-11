@@ -15,6 +15,7 @@ public class CameraControl : MonoBehaviour
 
 	public float distanceMin = .5f;
 	public float distanceMax = 15f;
+	public Vector3 offset = Vector3.zero;
 
 	private Rigidbody body;
 
@@ -59,7 +60,7 @@ public class CameraControl : MonoBehaviour
 			Vector3 position = rotation * negDistance + target.position;
 
 			transform.rotation = rotation;
-			transform.position = position;
+			transform.position = position + offset;
 		}
 	}
 

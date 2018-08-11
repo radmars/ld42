@@ -11,8 +11,9 @@ public class LifterTile: TileEffect
 	public float raiseTime = 1.0f;
 	private float startTime;
 
-	public void Trigger()
+	public override void Trigger()
 	{
+		base.Trigger();
 		startTime = Time.time;
 		lifterEnabled = true;
 	}
@@ -40,6 +41,7 @@ public class LifterTile: TileEffect
 			if(completeness >= 1)
 			{
 				lifterEnabled = false;
+				MarkFinished();
 			}
 		}
 	}

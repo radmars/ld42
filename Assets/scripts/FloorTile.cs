@@ -7,14 +7,4 @@ public class FloorTile : MonoBehaviour {
 	public bool cornerWall = false;
 
 	public TileEffect tileEffect;
-
-	// Use this for initialization
-	void Start () {
-
-	}
-
-	// Update is called once per frame
-	void Update () {
-
-	}
 }

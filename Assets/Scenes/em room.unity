@@ -161,7 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   straightWall: 0
   cornerWall: 1
-  tileEffect: {fileID: 0}
+  tileEffect: {fileID: 2140781811}
 --- !u!64 &56885525
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -621,7 +621,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   straightWall: 1
   cornerWall: 0
-  tileEffect: {fileID: 0}
+  tileEffect: {fileID: 420306135}
 --- !u!64 &261173344
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2308,7 +2308,6 @@ GameObject:
   - component: {fileID: 1195975862}
   - component: {fileID: 1195975861}
   - component: {fileID: 1195975865}
-  - component: {fileID: 1195975866}
   m_Layer: 0
   m_Name: Floor Tile
   m_TagString: Untagged
@@ -2386,20 +2385,6 @@ Transform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1195975865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1195975860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 106b370f78d2ce6418ecc1f28ff31c19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  straightWall: 0
-  cornerWall: 0
-  tileEffect: {fileID: 0}
---- !u!114 &1195975866
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

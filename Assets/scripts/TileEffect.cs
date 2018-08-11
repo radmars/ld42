@@ -1,18 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class TileEffect : MonoBehaviour
+public abstract class TileEffect : MonoBehaviour
 {
+	public delegate void EffectFinished(TileEffect effect);
+	public EffectFinished Finished;
 
-	// Use this for initialization
-	void Start()
+	private bool triggered = false;
+	private bool finished = false;
+
+	public virtual void Trigger()
 	{
-
+		triggered = true;
 	}
 
-	// Update is called once per frame
-	void Update()
+	protected void MarkFinished()
 	{
+		finished = true;
+		var finishedCallback = Finished;
+		if(finishedCallback != null)
+		{
+			Finished(this);
+		}
+	}
 
+	internal bool IsFinished()
+	{
+		return finished;
+	}
+
+	internal bool IsTriggered()
+	{
+		return triggered;
 	}
 }

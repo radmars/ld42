@@ -18,8 +18,11 @@ public class Chairman : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		transform.Rotate(0, 0.1f, 0);
-		if (Input.GetKeyDown(KeyCode.Q))
+		if (Input.GetKeyDown(KeyCode.W))
+		{
+			force(0, 0);
+		}
+		else if (Input.GetKeyDown(KeyCode.Q))
 		{
 			force(.5f, .5f);
 		}
@@ -50,6 +53,6 @@ public class Chairman : MonoBehaviour
 		offset = q * offset;
 		var forcePosition = this.transform.position - fwd + offset;
 		previous.transform.position = forcePosition;
-		body.AddForceAtPosition(forcePosition, transform.forward, ForceMode.Impulse);
+		body.AddForceAtPosition(transform.forward, forcePosition, ForceMode.Impulse);
 	}
 }

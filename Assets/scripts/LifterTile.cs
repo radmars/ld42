@@ -2,10 +2,10 @@
 using System.Collections;
 using System;
 
-public class SpikeTile : FloorTile
+public class LifterTile: FloorTile
 {
-	public GameObject spikeHolder;
-	private bool spikeEnabled = false;
+	public GameObject liftee;
+	private bool lifterEnabled = false;
 	private Vector3 raised = Vector3.up * 1.5f;
 	private Vector3 lowered = Vector3.zero;
 	public float raiseTime = 1.0f;
@@ -14,7 +14,7 @@ public class SpikeTile : FloorTile
 	public void Trigger()
 	{
 		startTime = Time.time;
-		spikeEnabled = true;
+		lifterEnabled = true;
 	}
 
 	IEnumerator WaitAndRun(float t, Action a) {
@@ -26,20 +26,20 @@ public class SpikeTile : FloorTile
 	void Start()
 	{
 		StartCoroutine(WaitAndRun(3, () => Trigger()));
-		lowered = spikeHolder.transform.localPosition;
+		lowered = liftee.transform.localPosition;
 		raised = lowered + raised;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if(spikeEnabled)
+		if(lifterEnabled)
 		{
 			float completeness = (Time.time - startTime) / raiseTime;
-			spikeHolder.transform.localPosition = Vector3.Lerp(lowered, raised, completeness);
+			liftee.transform.localPosition = Vector3.Lerp(lowered, raised, completeness);
 			if(completeness >= 1)
 			{
-				spikeEnabled = false;
+				lifterEnabled = false;
 			}
 		}
 	}

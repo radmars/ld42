@@ -38,8 +38,17 @@ public class CameraControl : MonoBehaviour
 		}
 	}
 
+	private bool breakCamera = false;
 	void LateUpdate()
 	{
+		if (breakCamera)
+		{
+			return;
+		}
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
+			breakCamera = true;
+		}
 		if (target)
 		{
 			x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;

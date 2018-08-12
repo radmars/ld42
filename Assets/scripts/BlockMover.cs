@@ -16,6 +16,8 @@ public class BlockMover : TileEffect
     private float startTime;
     private float retractTime = 2f;
 
+    private BlockSoundController soundController;
+
     public override void Trigger()
     {
         print("Trigger");
@@ -23,6 +25,8 @@ public class BlockMover : TileEffect
         base.Trigger();
         startTime = Time.time;
         moverEnabled = true;
+
+        soundController.BlockMoving();
     }
 
     public void Retract()
@@ -33,9 +37,10 @@ public class BlockMover : TileEffect
         retractFrom = gameObject.transform.localPosition;
         startTime = Time.time;
 
+        soundController.BlockMoving();
     }
 
-	public void Reset()
+    public void Reset()
 	{
         moverEnabled = false;
         retracting = false;
@@ -50,6 +55,12 @@ public class BlockMover : TileEffect
         retracted = gameObject.transform.localPosition;
         extended = retracted + extended;
         gameObject.SetActive(false);
+
+        GameObject sc = GameObject.Find("BlockSoundController");
+        if (sc)
+        {
+            soundController = sc.GetComponent<BlockSoundController>();
+        }
     }
 
     // Update is called once per frame
@@ -83,9 +94,11 @@ public class BlockMover : TileEffect
         print("Stop");
         moverEnabled = false;
 		MarkFinished();
-	}
 
-	private void OnCollisionEnter(Collision collision)
+        soundController.BlockStopped();
+    }
+
+    private void OnCollisionEnter(Collision collision)
 	{
 		if(moverEnabled && collision.collider.tag == "Obstacle")
 		{

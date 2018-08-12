@@ -93,6 +93,11 @@ public class Chairman : MonoBehaviour
 
     private void playMovement()
     {
+        if (movement.Count == 0)
+        {
+            return;
+        }
+
         movementAudioSource.clip = movement[movementIndices[movementIndex]];
         movementAudioSource.Play();
 

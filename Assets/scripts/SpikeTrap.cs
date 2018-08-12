@@ -25,6 +25,10 @@ public class SpikeTrap : TileEffect
     private float pauseCountdown;
     private float lastTime;
 
+    public AudioSource audioSource;
+    public AudioClip warningAudio;
+    public AudioClip spikeAudio;
+
     // Use this for initialization
     void Start()
     {
@@ -51,6 +55,10 @@ public class SpikeTrap : TileEffect
 
         warningSpikes.gameObject.SetActive(true);
         spikes.gameObject.SetActive(false);
+
+        audioSource.Stop();
+        audioSource.clip = warningAudio;
+        audioSource.Play();
     }
 
     public void Retract()
@@ -94,6 +102,10 @@ public class SpikeTrap : TileEffect
             startTime = Time.time;
             warningSpikes.gameObject.SetActive(false);
             spikes.gameObject.SetActive(true);
+
+            audioSource.Stop();
+            audioSource.clip = spikeAudio;
+            audioSource.Play();
         }
 
 

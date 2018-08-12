@@ -29,6 +29,8 @@ public class SpikeTrap : TileEffect
     public AudioClip warningAudio;
     public AudioClip spikeAudio;
 
+    private GameObject chairman;
+
     // Use this for initialization
     void Start()
     {
@@ -43,6 +45,8 @@ public class SpikeTrap : TileEffect
         gameObject.SetActive(false);
 
         Trigger();
+
+        chairman = GameObject.Find("Chairman");
     }
 
     public override void Trigger()
@@ -106,6 +110,15 @@ public class SpikeTrap : TileEffect
             audioSource.Stop();
             audioSource.clip = spikeAudio;
             audioSource.Play();
+
+            Vector3 heading = chairman.transform.position - transform.position;
+            float dist = heading.magnitude;
+
+            if (dist < 5.0f)
+            {
+                Chairman ch = chairman.GetComponent<Chairman>();
+                ch.Panic();
+            } 
         }
 
 

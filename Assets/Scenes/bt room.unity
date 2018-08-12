@@ -2808,8 +2808,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   voiceAudioSource: {fileID: 397478395}
   movementAudioSource: {fileID: 397478394}
-  gag: {fileID: 0}
-  panics: []
+  gag: {fileID: 8300000, guid: bfae1dc01f730c84983bb27ce2a20ddb, type: 3}
+  panics:
+  - {fileID: 8300000, guid: c4e545803b6ab3d49b2e6a296730c77f, type: 3}
+  - {fileID: 8300000, guid: 1fb192eb472e4aa479a00dfb526bd496, type: 3}
+  - {fileID: 8300000, guid: 4c93f36f2f8e4854cbae3cbb90d7a7c9, type: 3}
   movement: []
   falls: []
   crushed: {fileID: 0}

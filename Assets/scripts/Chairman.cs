@@ -25,6 +25,12 @@ public class Chairman : MonoBehaviour
     private List<int> movementIndices;
     private int movementIndex = 0;
 
+    private List<int> panicIndices;
+    private int panicIndex = 0;
+
+    private bool panicking = false;
+    private float lastGagTime = 0.0f;
+
     // Use this for initialization
     void Start()
 	{
@@ -41,7 +47,14 @@ public class Chairman : MonoBehaviour
             movementIndices.Add(i);
         }
         ShuffleList(movementIndices);
-	}
+
+        panicIndices = new List<int>(panics.Count);
+        for (int i = 0; i < panics.Count; i++)
+        {
+            panicIndices.Add(i);
+        }
+        ShuffleList(panicIndices);
+    }
 
 	// Update is called once per frame
 	void Update()
@@ -154,5 +167,45 @@ public class Chairman : MonoBehaviour
             list[k] = list[n];
             list[n] = value;
         }
+    }
+
+    public void Panic()
+    {
+        if (!panicking)
+        {
+            if (panics.Count == 0)
+            {
+                return;
+            }
+
+            panicking = true;
+
+            lastGagTime = voiceAudioSource.time;
+            voiceAudioSource.Stop();
+            voiceAudioSource.loop = false;
+            voiceAudioSource.clip = panics[panicIndices[panicIndex]];
+            voiceAudioSource.Play();
+
+            panicIndex++;
+            if (panicIndex == panics.Count)
+            {
+                panicIndex = 0;
+                ShuffleList(panicIndices);
+            }
+
+            StartCoroutine(CalmDown());
+        }
+    }
+
+    private IEnumerator CalmDown()
+    {
+        yield return new WaitForSeconds(14.0f);
+
+        panicking = false;
+        voiceAudioSource.Stop();
+        voiceAudioSource.loop = true;
+        voiceAudioSource.clip = gag;
+        voiceAudioSource.time = lastGagTime;
+        voiceAudioSource.Play();
     }
 }

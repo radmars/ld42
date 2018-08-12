@@ -34,15 +34,15 @@ public class Chairman : MonoBehaviour
 		{
 			Force(new Vector3(1f, 1f), transform.up);
 		}
-		else if(Input.GetKeyDown(KeyCode.A))
+		else if (Input.GetKeyDown(KeyCode.A))
 		{
 			Force(new Vector3(1f, -1f));
 		}
-		else if(Input.GetKeyDown(KeyCode.D))
+		else if (Input.GetKeyDown(KeyCode.D))
 		{
 			Force(new Vector3(-1f, -1f));
 		}
-		else if(Input.GetKeyDown(KeyCode.S))
+		else if (Input.GetKeyDown(KeyCode.S))
 		{
 			Force(new Vector3(0, -1f, 2), transform.forward * -1);
 		}
@@ -67,22 +67,30 @@ public class Chairman : MonoBehaviour
 
 	private void OnCollisionStay(Collision collision)
 	{
-		if(collision.collider.tag == "Obstacle" && Mathf.Abs(collision.contacts[0].separation) > .1f)
+		if (collision.collider.tag == "Obstacle" && Mathf.Abs(collision.contacts[0].separation) > .1f)
 		{
-			if(alive)
-			{
-				Die("You got crushed");
-			}
+			Die("You got crushed");
+		}
+	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		if (collision.collider.tag == "Fatal")
+		{
+			Die("Stabbed");
 		}
 	}
 
 	private void Die(string why)
 	{
-		alive = false;
-		var handler = OnDie;
-		if(handler != null)
+		if (alive)
 		{
-			handler(why);
+			alive = false;
+			var handler = OnDie;
+			if (handler != null)
+			{
+				handler(why);
+			}
 		}
 	}
 }

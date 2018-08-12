@@ -27,8 +27,10 @@ public class Floor : MonoBehaviour
 			e.Finished += OnFinish;
 		});
 
-
-		winLose.enabled = false;
+		if (winLose != null)
+		{
+			winLose.enabled = false;
+		}
 		chairman.OnDie += OnChairmanDeath;
 	}
 
@@ -47,7 +49,7 @@ public class Floor : MonoBehaviour
 
 	private void Die(string why)
 	{
-		if (winLose != null)
+		if (winLose != null && !winLose.enabled)
 		{
 			winLose.text = "YOU DIED: \n" + why.ToUpper() + "\nRESTART IN 5 SECONDS";
 			winLose.enabled = true;
@@ -57,7 +59,7 @@ public class Floor : MonoBehaviour
 
 	private void Win()
 	{
-		if (winLose != null)
+		if (winLose != null && !winLose.enabled)
 		{
 			winLose.text = "YOU WIN\nRESTART IN 5 SECONDS";
 			winLose.enabled = true;

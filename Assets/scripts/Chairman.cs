@@ -1,19 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Chairman : MonoBehaviour
 {
 	private Rigidbody body;
+
 	public GameObject o;
 
+	public delegate void DeathHanlder(string why);
+	public DeathHanlder OnDie;
+
 	private GameObject previous;
-	public bool crushed;
+	private bool alive;
 
 	// Use this for initialization
 	void Start()
 	{
 		body = GetComponent<Rigidbody>();
+		alive = true;
 	}
 
 	// Update is called once per frame
@@ -61,7 +67,6 @@ public class Chairman : MonoBehaviour
 		offset = (q * offset);
 
 		var forcePosition = this.transform.position - fwd + offset;
-		Debug.Log("outbound offset " + offset);
 		previous.transform.position = forcePosition;
 		body.AddForceAtPosition(direction, forcePosition, ForceMode.Impulse);
 	}
@@ -70,11 +75,20 @@ public class Chairman : MonoBehaviour
 	{
 		if(collision.collider.tag == "Obstacle" && Mathf.Abs(collision.contacts[0].separation) > .1f)
 		{
-			if(!crushed)
+			if(alive)
 			{
-				Debug.Log("You got crushed");
-				crushed = true;
+				Die("You got crushed");
 			}
+		}
+	}
+
+	private void Die(string why)
+	{
+		alive = false;
+		var handler = OnDie;
+		if(handler != null)
+		{
+			handler(why);
 		}
 	}
 }

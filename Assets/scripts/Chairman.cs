@@ -149,16 +149,10 @@ public class Chairman : MonoBehaviour
         while (n > 1)
         {
             n--;
-            int k = randomInt(n + 1);
+            int k = Random.Range(0, n + 1);
             int value = list[k];
             list[k] = list[n];
             list[n] = value;
         }
-    }
-
-    private int randomInt(int numValues)
-    {
-        float f = Random.value * (numValues - 0.001f);
-        return (int)System.Math.Floor(f);
     }
 }

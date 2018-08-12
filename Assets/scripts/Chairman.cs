@@ -7,12 +7,9 @@ public class Chairman : MonoBehaviour
 {
 	private Rigidbody body;
 
-	public GameObject o;
-
 	public delegate void DeathHanlder(string why);
 	public DeathHanlder OnDie;
 
-	private GameObject previous;
 	private bool alive;
 
 	// Use this for initialization
@@ -58,8 +55,6 @@ public class Chairman : MonoBehaviour
 
 	private void Force(Vector3 offset, Vector3 direction)
 	{
-		Destroy(previous);
-		previous = Instantiate(o);
 		var fwd = transform.forward;
 		fwd.Normalize();
 
@@ -67,7 +62,6 @@ public class Chairman : MonoBehaviour
 		offset = (q * offset);
 
 		var forcePosition = this.transform.position - fwd + offset;
-		previous.transform.position = forcePosition;
 		body.AddForceAtPosition(direction, forcePosition, ForceMode.Impulse);
 	}
 

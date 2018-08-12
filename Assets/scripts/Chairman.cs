@@ -12,11 +12,35 @@ public class Chairman : MonoBehaviour
 
 	private bool alive;
 
-	// Use this for initialization
-	void Start()
+    public AudioSource voiceAudioSource;
+    public AudioSource movementAudioSource;
+
+    public AudioClip gag;
+    public List<AudioClip> panics;
+    public List<AudioClip> movement;
+    public List<AudioClip> falls;
+    public AudioClip crushed;
+    public AudioClip stabbed;
+
+    private List<int> movementIndices;
+    private int movementIndex = 0;
+
+    // Use this for initialization
+    void Start()
 	{
 		body = GetComponent<Rigidbody>();
 		alive = true;
+
+        voiceAudioSource.loop = true;
+        voiceAudioSource.clip = gag;
+        voiceAudioSource.Play();
+
+        movementIndices = new List<int>(movement.Count);
+        for (int i = 0; i < movement.Count; i++)
+        {
+            movementIndices.Add(i);
+        }
+        ShuffleList(movementIndices);
 	}
 
 	// Update is called once per frame
@@ -63,29 +87,49 @@ public class Chairman : MonoBehaviour
 
 		var forcePosition = this.transform.position - fwd + offset;
 		body.AddForceAtPosition(direction, forcePosition, ForceMode.Impulse);
-	}
+
+        playMovement();
+    }
+
+    private void playMovement()
+    {
+        movementAudioSource.clip = movement[movementIndices[movementIndex]];
+        movementAudioSource.Play();
+
+        movementIndex++;
+        if (movementIndex == movement.Count)
+        {
+            movementIndex = 0;
+            ShuffleList(movementIndices);
+        }
+    }
 
 	private void OnCollisionStay(Collision collision)
 	{
 		if (collision.collider.tag == "Obstacle" && Mathf.Abs(collision.contacts[0].separation) > .1f)
 		{
-			Die("You got crushed");
-		}
+			Die("You got crushed", crushed);
+        }
 	}
 
 	private void OnCollisionEnter(Collision collision)
 	{
 		if (collision.collider.tag == "Fatal")
 		{
-			Die("Stabbed");
-		}
+			Die("Stabbed", stabbed);
+        }
 	}
 
-	private void Die(string why)
+	private void Die(string why, AudioClip clip)
 	{
 		if (alive)
 		{
-			alive = false;
+            voiceAudioSource.Stop();
+            voiceAudioSource.loop = false;
+            voiceAudioSource.clip = clip;
+            voiceAudioSource.Play();
+
+            alive = false;
 			var handler = OnDie;
 			if (handler != null)
 			{
@@ -93,4 +137,23 @@ public class Chairman : MonoBehaviour
 			}
 		}
 	}
+
+    private void ShuffleList(List<int> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = randomInt(n + 1);
+            int value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
+
+    private int randomInt(int numValues)
+    {
+        float f = Random.value * (numValues - 0.001f);
+        return (int)System.Math.Floor(f);
+    }
 }

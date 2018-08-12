@@ -5,6 +5,7 @@ using UnityEngine;
 public class GruntController : MonoBehaviour {
 	private void OnTriggerEnter(Collider other)
 	{
-		print("Bodied");
+        Chairman chairman = transform.parent.gameObject.GetComponent<Chairman>();
+        chairman.Fall();
 	}
 }

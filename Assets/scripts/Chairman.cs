@@ -14,6 +14,7 @@ public class Chairman : MonoBehaviour
 
     public AudioSource voiceAudioSource;
     public AudioSource movementAudioSource;
+    public AudioSource fallAudioSource;
 
     public AudioClip gag;
     public List<AudioClip> panics;
@@ -30,6 +31,10 @@ public class Chairman : MonoBehaviour
 
     private bool panicking = false;
     private float lastGagTime = 0.0f;
+
+    private List<int> fallIndices;
+    private int fallIndex = 0;
+    private bool fallSoundPlaying = false;
 
     // Use this for initialization
     void Start()
@@ -54,6 +59,13 @@ public class Chairman : MonoBehaviour
             panicIndices.Add(i);
         }
         ShuffleList(panicIndices);
+
+        fallIndices = new List<int>(falls.Count);
+        for (int i = 0; i < falls.Count; i++)
+        {
+            fallIndices.Add(i);
+        }
+        ShuffleList(fallIndices);
     }
 
 	// Update is called once per frame
@@ -207,5 +219,35 @@ public class Chairman : MonoBehaviour
         voiceAudioSource.clip = gag;
         voiceAudioSource.time = lastGagTime;
         voiceAudioSource.Play();
+    }
+
+    public void Fall()
+    {
+        if (fallSoundPlaying || !alive)
+        {
+            return;
+        }
+
+        voiceAudioSource.mute = true;
+
+        fallAudioSource.clip = falls[fallIndices[fallIndex]];
+        fallAudioSource.Play();
+        fallSoundPlaying = true;
+
+        fallIndex++;
+        if (fallIndex == falls.Count)
+        {
+            fallIndex = 0;
+            ShuffleList(fallIndices);
+        }
+
+        StartCoroutine(FallFinished());
+    }
+
+    private IEnumerator FallFinished()
+    {
+        yield return new WaitForSeconds(1.2f);
+        voiceAudioSource.mute = false;
+        fallSoundPlaying = false;
     }
 }

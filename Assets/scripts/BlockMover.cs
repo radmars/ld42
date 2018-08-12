@@ -9,36 +9,64 @@ public class BlockMover : TileEffect
     public float extendTime = 5.0f;
 
     private bool moverEnabled = false;
+    private bool retracting = false;
     private Vector3 extended; // = Vector3.up * 1.5f;
     private Vector3 retracted = Vector3.zero;
+    private Vector3 retractFrom = Vector3.zero;
     private float startTime;
+    private float retractTime = 2f;
 
     public override void Trigger()
     {
+        print("Trigger");
+        gameObject.SetActive(true);
         base.Trigger();
         startTime = Time.time;
         moverEnabled = true;
     }
 
-    IEnumerator WaitAndRun(float t, Action a)
+    public void Retract()
     {
-        yield return new WaitForSeconds(t);
-        a();
+        print("Retract");
+
+        retracting = true;
+        retractFrom = gameObject.transform.localPosition;
+        startTime = Time.time;
+
     }
+
+	public void Reset()
+	{
+        moverEnabled = false;
+        retracting = false;
+        gameObject.SetActive(false);
+        gameObject.transform.localPosition = retracted;
+	}
 
     // Use this for initialization
     void Start()
     {
         extended = moveDirection * moveAmount;
-        StartCoroutine(WaitAndRun(3, () => Trigger()));
         retracted = gameObject.transform.localPosition;
         extended = retracted + extended;
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (moverEnabled)
+        if (retracting)
+        {
+            float completeness = (Time.time - startTime) / retractTime;
+            gameObject.transform.localPosition = Vector3.Lerp(retractFrom, retracted, completeness);
+            if (completeness >= 1)
+            {
+                Stop();
+                retracting = false;
+                gameObject.SetActive(false);
+            }
+        }
+        else if (moverEnabled)
         {
             float completeness = (Time.time - startTime) / extendTime;
             gameObject.transform.localPosition = Vector3.Lerp(retracted, extended, completeness);
@@ -52,7 +80,8 @@ public class BlockMover : TileEffect
 
 	private void Stop()
 	{
-		moverEnabled = false;
+        print("Stop");
+        moverEnabled = false;
 		MarkFinished();
 	}
 
@@ -60,7 +89,8 @@ public class BlockMover : TileEffect
 	{
 		if(moverEnabled && collision.collider.tag == "Obstacle")
 		{
-			Stop();
+            print("Collide with " + collision.collider.name);
+            Stop();
 		}
 	}
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Fatal
+  - Wall
   layers:
   - Default
   - TransparentFX

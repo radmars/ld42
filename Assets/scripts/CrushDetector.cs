@@ -9,7 +9,7 @@ public class CrushDetector : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         print("CrushDetector collided");
-        if (other.tag == "Obstacle")
+        if (other.tag == "Obstacle" || other.tag == "Wall")
         {
             chairman.Crush();
         }

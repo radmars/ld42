@@ -183,7 +183,7 @@ public class Chairman : MonoBehaviour
 
     public void Panic()
     {
-        if (!panicking)
+        if (!panicking && alive)
         {
             if (panics.Count == 0)
             {
@@ -214,11 +214,15 @@ public class Chairman : MonoBehaviour
         yield return new WaitForSeconds(14.0f);
 
         panicking = false;
-        voiceAudioSource.Stop();
-        voiceAudioSource.loop = true;
-        voiceAudioSource.clip = gag;
-        voiceAudioSource.time = lastGagTime;
-        voiceAudioSource.Play();
+
+        if (alive)
+        {
+            voiceAudioSource.Stop();
+            voiceAudioSource.loop = true;
+            voiceAudioSource.clip = gag;
+            voiceAudioSource.time = lastGagTime;
+            voiceAudioSource.Play();
+        }
     }
 
     public void Fall()

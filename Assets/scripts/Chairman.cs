@@ -79,11 +79,11 @@ public class Chairman : MonoBehaviour
 		}
 		else if (Input.GetKeyDown(KeyCode.Q))
 		{
-			Force(new Vector3(1.0f, 1.0f), transform.up);
+			Force(new Vector3(0, 3.0f), transform.up);
 		}
 		else if (Input.GetKeyDown(KeyCode.E))
 		{
-			Force(new Vector3(-1.0f, 1.0f), transform.up);
+			Force(new Vector3(0, -5.0f), transform.up);
 		}
 		else if (Input.GetKeyDown(KeyCode.A))
 		{
@@ -143,11 +143,18 @@ public class Chairman : MonoBehaviour
 
 	private void OnCollisionStay(Collision collision)
 	{
-		if (collision.collider.tag == "Obstacle" && Mathf.Abs(collision.contacts[0].separation) > .1f)
+		if (collision.collider.tag == "Obstacle" && Mathf.Abs(collision.contacts[0].separation) > .2f)
 		{
-			Die("You got crushed", crushed);
+			//Die("You got crushed", crushed);
+
+
         }
 	}
+
+    public void Crush() 
+    {
+        Die("You got crushed", crushed);
+    }
 
 	private void OnCollisionEnter(Collision collision)
 	{
@@ -173,6 +180,7 @@ public class Chairman : MonoBehaviour
 			{
 				handler(why);
 			}
+            Destroy(body);
 		}
 	}
 

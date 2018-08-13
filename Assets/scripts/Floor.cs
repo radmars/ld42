@@ -13,6 +13,7 @@ public class Floor : MonoBehaviour
 
 	public Chairman chairman;
 	public Text winLose;
+	public Elevator elevator;
 
 	// Use this for initialization
 	void Start()
@@ -32,6 +33,12 @@ public class Floor : MonoBehaviour
 			winLose.enabled = false;
 		}
 		chairman.OnDie += OnChairmanDeath;
+		elevator.OnInElevator += InElevator;
+	}
+
+	private void InElevator()
+	{
+		Win();
 	}
 
 	private void OnChairmanDeath(string why)
@@ -43,7 +50,7 @@ public class Floor : MonoBehaviour
 	{
 		if (effects.Where(e => e.IsFinished()).Count() <= 1)
 		{
-			Win();
+		//	Win();
 		}
 	}
 

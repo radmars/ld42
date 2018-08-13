@@ -7,8 +7,8 @@ public class Chairman : MonoBehaviour
 {
 	private Rigidbody body;
 
-	public delegate void DeathHanlder(string why);
-	public DeathHanlder OnDie;
+	public delegate void DeathHandler(string why);
+	public DeathHandler OnDie;
 
 	private bool alive;
 

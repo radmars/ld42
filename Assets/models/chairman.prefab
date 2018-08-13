@@ -693,7 +693,7 @@ GameObject:
   - component: {fileID: 82238064540950082}
   - component: {fileID: 82687228469190012}
   m_Layer: 0
-  m_Name: Chairman
+  m_Name: chairman
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

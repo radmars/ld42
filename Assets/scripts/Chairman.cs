@@ -157,6 +157,7 @@ public class Chairman : MonoBehaviour
             voiceAudioSource.Stop();
             voiceAudioSource.loop = false;
             voiceAudioSource.clip = clip;
+            voiceAudioSource.time = 0.0f;
             voiceAudioSource.Play();
 
             alive = false;
@@ -196,6 +197,7 @@ public class Chairman : MonoBehaviour
             voiceAudioSource.Stop();
             voiceAudioSource.loop = false;
             voiceAudioSource.clip = panics[panicIndices[panicIndex]];
+            voiceAudioSource.time = 0.0f;
             voiceAudioSource.Play();
 
             panicIndex++;

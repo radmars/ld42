@@ -46,7 +46,7 @@ public class SpikeTrap : TileEffect
 
         //Trigger();
 
-        chairman = GameObject.Find("Chairman");
+        chairman = GameObject.Find("chairman");
     }
 
     public override void Trigger()

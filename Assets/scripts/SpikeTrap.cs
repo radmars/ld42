@@ -44,7 +44,7 @@ public class SpikeTrap : TileEffect
         //warningSpikes.gameObject.SetActive(false);
         gameObject.SetActive(false);
 
-        Trigger();
+        //Trigger();
 
         chairman = GameObject.Find("Chairman");
     }
@@ -65,7 +65,7 @@ public class SpikeTrap : TileEffect
         audioSource.Play();
     }
 
-    public void Retract()
+    public override void Retract()
     {
         print("Retract");
 
@@ -154,7 +154,6 @@ public class SpikeTrap : TileEffect
             if (completeness >= 1)
             {
                 Stop();
-                Retract();
             }
         }
     }

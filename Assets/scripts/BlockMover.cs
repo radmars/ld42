@@ -29,7 +29,7 @@ public class BlockMover : TileEffect
         soundController.BlockMoving();
     }
 
-    public void Retract()
+    public override void Retract()
     {
         print("Retract");
 

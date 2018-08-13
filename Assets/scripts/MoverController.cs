@@ -7,12 +7,12 @@ using System;
 public class MoverController : MonoBehaviour
 {
 
-	public BlockMover[] movers;
+	public TileEffect[] movers;
 
 	private List<int[]> patterns = new List<int[]>{
-		new int[] { 0, 1, 2, 3 },
-		new int[] { 3, 2, 1, 0 },
-		new int[] { 6, 8, 10, 12 },
+		new int[] { 0, 1, 2, 3, 30, 31, 32, 33 },
+        new int[] { 3, 2, 1, 0, 30, 31, 32, 33 },
+        new int[] { 6, 8, 10, 12, 30, 31, 32, 33 },
 	};
 	private float delayTime;
 	private float lastTime;

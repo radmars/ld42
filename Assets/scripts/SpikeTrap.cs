@@ -5,7 +5,7 @@ using System;
 public class SpikeTrap : TileEffect
 {
     private Vector3 moveDirection = Vector3.up;
-    private float moveAmount = 2f;
+    private float moveAmount = 3f;
     private float extendTime = .2f;
 
     private GameObject spikes;
@@ -19,7 +19,7 @@ public class SpikeTrap : TileEffect
     private Vector3 retracted = Vector3.zero;
     private Vector3 retractFrom = Vector3.zero;
     private float startTime;
-    private float retractTime = 2f;
+    private float retractTime = 1.5f;
 
     private bool paused = false;
     private float pauseCountdown;
@@ -37,11 +37,11 @@ public class SpikeTrap : TileEffect
         extended = moveDirection * moveAmount;
         retracted = gameObject.transform.localPosition;
         extended = retracted + extended;
-        semiExtended = retracted + Vector3.Scale(extended, new Vector3(0f, .25f, 0f));
+        semiExtended = retracted + new Vector3(0f, .6f, 0f);
 
         spikes = transform.Find("Spike Holder").gameObject;
         warningSpikes = transform.Find("Spike Warning").gameObject;
-        warningSpikes.gameObject.SetActive(false);
+        //warningSpikes.gameObject.SetActive(false);
         gameObject.SetActive(false);
 
         Trigger();
@@ -57,7 +57,7 @@ public class SpikeTrap : TileEffect
         startTime = Time.time;
         warningEnabled = true;
 
-        warningSpikes.gameObject.SetActive(true);
+        //warningSpikes.gameObject.SetActive(true);
         spikes.gameObject.SetActive(false);
 
         audioSource.Stop();
@@ -73,7 +73,7 @@ public class SpikeTrap : TileEffect
         retractFrom = gameObject.transform.localPosition;
         startTime = Time.time;
 
-        warningSpikes.gameObject.SetActive(true);
+        //warningSpikes.gameObject.SetActive(true);
         spikes.gameObject.SetActive(false);
 
     }
@@ -85,7 +85,7 @@ public class SpikeTrap : TileEffect
         gameObject.SetActive(false);
         gameObject.transform.localPosition = retracted;
 
-        warningSpikes.gameObject.SetActive(true);
+        //warningSpikes.gameObject.SetActive(true);
         spikes.gameObject.SetActive(false);
     }
 
@@ -104,7 +104,7 @@ public class SpikeTrap : TileEffect
         {
             paused = false;
             startTime = Time.time;
-            warningSpikes.gameObject.SetActive(false);
+            //warningSpikes.gameObject.SetActive(false);
             spikes.gameObject.SetActive(true);
 
             audioSource.Stop();
@@ -154,6 +154,7 @@ public class SpikeTrap : TileEffect
             if (completeness >= 1)
             {
                 Stop();
+                Retract();
             }
         }
     }

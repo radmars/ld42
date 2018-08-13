@@ -15,6 +15,11 @@ public abstract class TileEffect : MonoBehaviour
 		triggered = true;
 	}
 
+    public virtual void Retract()
+    {
+        
+    }
+
 	protected void MarkFinished()
 	{
 		finished = true;

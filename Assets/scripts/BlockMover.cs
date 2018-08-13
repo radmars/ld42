@@ -26,7 +26,7 @@ public class BlockMover : TileEffect
         startTime = Time.time;
         moverEnabled = true;
 
-        soundController.BlockMoving();
+        PlayBlockMoving();
     }
 
     public override void Retract()
@@ -37,7 +37,7 @@ public class BlockMover : TileEffect
         retractFrom = gameObject.transform.localPosition;
         startTime = Time.time;
 
-        soundController.BlockMoving();
+        PlayBlockMoving();
     }
 
     public void Reset()
@@ -60,6 +60,24 @@ public class BlockMover : TileEffect
         if (sc)
         {
             soundController = sc.GetComponent<BlockSoundController>();
+        }
+    }
+
+    private void PlayBlockMoving(){
+        if (soundController)
+        {
+            soundController.BlockMoving();
+        }
+        else
+        {
+            GameObject sc = GameObject.Find("BlockSoundController");
+            if (sc)
+            {
+                soundController = sc.GetComponent<BlockSoundController>();
+                soundController.BlockMoving();
+            } else {
+                Debug.Log("No Sound Controller");
+            }
         }
     }
 
@@ -95,7 +113,7 @@ public class BlockMover : TileEffect
         moverEnabled = false;
 		MarkFinished();
 
-        soundController.BlockStopped();
+        PlayBlockMoving();
     }
 
     private void OnCollisionEnter(Collision collision)

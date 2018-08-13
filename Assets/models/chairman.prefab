@@ -1555,14 +1555,14 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1863952278546478}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 50
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!64 &64268228281042970
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -2002,6 +2002,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5bd379252243e87419ff9ad5f0564aa3, type: 3}
   crushed: {fileID: 8300000, guid: 8f97835898141d34f958e008fea14b2f, type: 3}
   stabbed: {fileID: 8300000, guid: 42c8f77a830211242aacf54066ff0f83, type: 3}
+  forceMult: 50
 --- !u!136 &136706362810540800
 CapsuleCollider:
   m_ObjectHideFlags: 1

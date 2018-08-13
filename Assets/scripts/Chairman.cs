@@ -36,6 +36,8 @@ public class Chairman : MonoBehaviour
     private int fallIndex = 0;
     private bool fallSoundPlaying = false;
 
+    public float forceMult = 50.0f;
+
     // Use this for initialization
     void Start()
 	{
@@ -73,27 +75,27 @@ public class Chairman : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.W))
 		{
-			Force(new Vector3(0, -1f));
+			Force(new Vector3(0, -0.25f));
 		}
 		else if (Input.GetKeyDown(KeyCode.Q))
 		{
-			Force(new Vector3(1f, 1f), transform.up);
+			Force(new Vector3(1.0f, 1.0f), transform.up);
 		}
 		else if (Input.GetKeyDown(KeyCode.E))
 		{
-			Force(new Vector3(1f, 1f), transform.up);
+			Force(new Vector3(-1.0f, 1.0f), transform.up);
 		}
 		else if (Input.GetKeyDown(KeyCode.A))
 		{
-			Force(new Vector3(1f, -1f));
+			Force(new Vector3(1.0f, -1.0f));
 		}
 		else if (Input.GetKeyDown(KeyCode.D))
 		{
-			Force(new Vector3(-1f, -1f));
+			Force(new Vector3(-1.0f, -1.0f));
 		}
 		else if (Input.GetKeyDown(KeyCode.S))
 		{
-			Force(new Vector3(0, -1f, 2), transform.forward * -1);
+			Force(new Vector3(0, -0.25f, 0.5f), transform.forward * -1);
 		}
 	}
 
@@ -104,6 +106,11 @@ public class Chairman : MonoBehaviour
 
 	private void Force(Vector3 offset, Vector3 direction)
 	{
+        if (!alive)
+        {
+            return;
+        }
+
 		var fwd = transform.forward;
 		fwd.Normalize();
 
@@ -111,7 +118,7 @@ public class Chairman : MonoBehaviour
 		offset = (q * offset);
 
 		var forcePosition = this.transform.position - fwd + offset;
-		body.AddForceAtPosition(direction, forcePosition, ForceMode.Impulse);
+		body.AddForceAtPosition(direction * forceMult, forcePosition, ForceMode.Impulse);
 
         playMovement();
     }

@@ -226,6 +226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 837c651c6452a4c22bd79a92c0d72786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: {x: -1, y: 0, z: 0}
+  moveDirection: {x: 1, y: 0, z: 0}
   moveAmount: 15
-  extendTime: 5
+  extendTime: 8

@@ -8,17 +8,22 @@ public class MoverController : MonoBehaviour
 {
 
 	public TileEffect[] movers;
+    public Elevator elevator;
 
 	private List<int[]> patterns = new List<int[]>{
-		new int[] { 0, 1, 2, 3, 30, 31, 32, 33 },
-        new int[] { 3, 2, 1, 0, 30, 31, 32, 33 },
-        new int[] { 6, 8, 10, 12, 30, 31, 32, 33 },
+		new int[] { 0, 1, 2, 3, 4, 74, 68, 62, 56, 50, 44, 38 },
+        new int[] { 19, 12, 20, 11, 21, 10, 50, 49, 48, 47, 46 },
+        new int[] { 12, 11, 10, 9, 8, 7, 27, 74, 28, 73, 29, 72, 30, 71, 31, 70 },
+        new int[] { 22, 10, 6, 25, 7, 39, 62, 44, 57, 40, 61, 43, 58 },
+        new int[] { 19, 20, 21, 22, 14, 15, 16, 18, 72, 73, 67, 66 },
+        new int[] { 5, 4, 3, 2, 1, 69, 63, 57, 51, 45, 39, 33 },
 	};
 	private float delayTime;
 	private float lastTime;
 	private int[] currentPattern;
 	private int currentPatternIndex = 0;
 	private string mode = "gap"; //gap, moving, stopping
+    private int level = 1;
 
 	void Start()
 	{
@@ -48,8 +53,11 @@ public class MoverController : MonoBehaviour
 				else
 				{
 					movers[currentPattern[currentPatternIndex]].Trigger();
-					currentPatternIndex++;
-					delayTime = 3f;
+
+                    if (currentPattern[currentPatternIndex] >= 27) delayTime = 1.5f; 
+                    else delayTime = 3f;
+
+                    currentPatternIndex++;
 				}
 			}
 			else if (mode == "stopping")
@@ -60,6 +68,8 @@ public class MoverController : MonoBehaviour
 				}
 				mode = "gap";
 				delayTime = 5f;
+                level++;
+                if (level == 2) elevator.OpenElevator();
 			}
 		}
 	}

@@ -13,7 +13,7 @@ public class Elevator : MonoBehaviour {
 
     public AudioSource audioSource;
 
-	void Start () {
+	public void OpenElevator () {
 		StartCoroutine(Open());
 	}
 

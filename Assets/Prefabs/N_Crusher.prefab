@@ -228,4 +228,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0, z: -1}
   moveAmount: 20
-  extendTime: 5
+  extendTime: 8

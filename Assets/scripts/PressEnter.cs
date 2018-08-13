@@ -20,7 +20,7 @@ public class PressEnter : MonoBehaviour {
 
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Return)) {
-			UnityEngine.SceneManagement.SceneManager.LoadScene("em room");
+			UnityEngine.SceneManagement.SceneManager.LoadScene("MainGameAwesome");
 		}
 	}
 }

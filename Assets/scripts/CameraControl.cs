@@ -25,6 +25,7 @@ public class CameraControl : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		Cursor.lockState = CursorLockMode.Locked;
 		Vector3 angles = transform.eulerAngles;
 		x = angles.y;
 		y = angles.x;

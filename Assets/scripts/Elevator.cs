@@ -11,6 +11,8 @@ public class Elevator : MonoBehaviour {
 	public ElevatorHandler OnInElevator;
 	public float openDuration = 4f;
 
+    public AudioSource audioSource;
+
 	void Start () {
 		StartCoroutine(Open());
 	}
@@ -29,6 +31,8 @@ public class Elevator : MonoBehaviour {
 
 	private IEnumerator Open()
 	{
+        audioSource.Play();
+
 		float offset = 1.65f;
 		float startTime = Time.time;
 		float openTime = startTime + openDuration;
